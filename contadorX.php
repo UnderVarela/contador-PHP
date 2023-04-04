@@ -1,6 +1,6 @@
 <?php 
 require_once('./models/contador.php');
-$contador = new Contador($_REQUEST['salida']??0);
+$contador = new Contador($_REQUEST['salida'] ?? $_COOKIE ['numero'] ?? 0);
 
 $contador->intervalo = 1;
 
@@ -8,10 +8,12 @@ extract($_REQUEST);
 
 if (isset($subir)) {
  $contador->incrementar();
+ setcookie('numero', $contador->getNumero());
 }
 
 if (isset($bajar)) {
   $contador->decrementar();
+  setcookie('numero', $contador->getNumero());
  }
 
 
